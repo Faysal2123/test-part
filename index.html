@@ -30,7 +30,7 @@
         font-family: "Roboto Condensed", sans-serif;
       }
       .carousel-track {
-        transition: transform 0.8s ease-in-out;
+        transition: transform 0.6s ease-in-out;
         display: flex;
       }
       .dragging {
@@ -39,6 +39,13 @@
       }
       .dragging .carousel-track {
         transition: none;
+      }
+      .carousel-wrapper {
+        overflow: hidden;
+        position: relative;
+      }
+      .carousel-card {
+        flex: 0 0 auto;
       }
     </style>
   </head>
@@ -49,7 +56,7 @@
           <!-- Left Column -->
           <div class="lg:col-span-2">
             <h1
-              class="text-4xl md:text-[45px] font-bold text-black uppercase mb-6 font-roboto-condensed mb-[50px]"
+              class="text-4xl md:text-[45px] font-bold text-black uppercase mb-6 font-roboto-condensed mb-[68px]"
             >
               AN AWARD-WINNING PLATFORM!
             </h1>
@@ -64,7 +71,7 @@
             </p>
 
             <p
-              class="text-[21px] md:w-[600px] text-black mb-8 leading-relaxed font-roboto-condensed"
+              class="text-[21px] md:w-[600px] text-black mb-8 leading-relaxed font-roboto-condensed md:mb-[50px]"
             >
               Experience our acclaimed platform today and unlock a world of
               possibilities!
@@ -284,7 +291,7 @@
           </div>
 
           <!-- Right Column -->
-          <div class="lg:col-span-1 mt-[50px]">
+          <div class="lg:col-span-1 md:mt-[90px]">
             <div class="bg-white rounded-lg shadow-lg p-4 sticky top-8">
               <div class="flex flex-col items-center">
                 <div class="mb-6 flex w-full items-center">
@@ -327,238 +334,254 @@
     </section>
 
     <script>
-      const carouselTrack = document.querySelector(".carousel-track");
-      const carouselCards = document.querySelectorAll(".carousel-card");
-      const carouselWrapper = document.querySelector(".carousel-wrapper");
-      const cardWidth = 256;
-      const gap = 24;
-      const cardTotalWidth = cardWidth + gap;
-      let currentIndex = 0;
-      const totalCards = carouselCards.length;
-      let isTransitioning = false;
-      let autoScrollInterval;
-      let isDragging = false;
-      let startPosition = 0;
-      let currentTranslate = 0;
-      let prevTranslate = 0;
-      let animationID = 0;
+  const carouselTrack = document.querySelector(".carousel-track");
+  const carouselCards = document.querySelectorAll(".carousel-card:not(.cloned-card)");
+  const carouselWrapper = document.querySelector(".carousel-wrapper");
+  const cardWidth = 256;
+  const gap = 24;
+  const cardTotalWidth = cardWidth + gap;
+  let currentIndex = 0;
+  const totalCards = carouselCards.length;
+  let isTransitioning = false;
+  let autoScrollInterval;
+  let isDragging = false;
+  let startPosition = 0;
+  let currentTranslate = 0;
+  let prevTranslate = 0;
+  let animationID = 0;
 
-      const rightTrophyImg = document.getElementById("right-trophy-img");
-      const rightYearBadge = document.getElementById("right-year-badge");
-      const rightAwardTitle = document.getElementById("right-award-title");
-      const leftBtn = document.querySelector(".carousel-left-btn");
-      const rightBtn = document.querySelector(".carousel-right-btn");
-      const carouselContainer = document.querySelector(".carousel-wrapper");
+  const rightTrophyImg = document.getElementById("right-trophy-img");
+  const rightYearBadge = document.getElementById("right-year-badge");
+  const rightAwardTitle = document.getElementById("right-award-title");
+  const leftBtn = document.querySelector(".carousel-left-btn");
+  const rightBtn = document.querySelector(".carousel-right-btn");
 
-      // Create cloned cards for seamless infinite scroll
-      function initializeCarousel() {
-        // Clone all cards and append to the end
-        carouselCards.forEach((card, index) => {
-          const clone = card.cloneNode(true);
-          clone.classList.add("cloned-card");
-          carouselTrack.appendChild(clone);
-        });
+  // Initialize carousel with proper infinite scroll
+  function initializeCarousel() {
+    // Clone first few cards and append to the end for seamless infinite scroll
+    for (let i = 0; i < 3; i++) {
+      const clone = carouselCards[i].cloneNode(true);
+      clone.classList.add("cloned-card");
+      carouselTrack.appendChild(clone);
+    }
+    
+    // Clone last few cards and prepend to the beginning
+    for (let i = totalCards - 3; i < totalCards; i++) {
+      const clone = carouselCards[i].cloneNode(true);
+      clone.classList.add("cloned-card");
+      carouselTrack.insertBefore(clone, carouselTrack.firstChild);
+    }
+    
+    // Set initial position to show first original card (after clones)
+    currentIndex = 3;
+    updateCarouselPosition();
+    updateRightSideDisplay(0);
+    setupEventListeners();
+  }
 
-        // Set initial position
-        updateCarouselPosition();
-        updateRightSideDisplay(0);
-        setupEventListeners();
-      }
+  function setupEventListeners() {
+    // Mouse events for dragging
+    carouselWrapper.addEventListener("mousedown", dragStart);
+    carouselWrapper.addEventListener("mousemove", drag);
+    carouselWrapper.addEventListener("mouseup", dragEnd);
+    carouselWrapper.addEventListener("mouseleave", dragEnd);
 
-      function setupEventListeners() {
-        // Mouse events for dragging
-        carouselWrapper.addEventListener("mousedown", dragStart);
-        carouselWrapper.addEventListener("mousemove", drag);
-        carouselWrapper.addEventListener("mouseup", dragEnd);
-        carouselWrapper.addEventListener("mouseleave", dragEnd);
+    // Touch events for mobile
+    carouselWrapper.addEventListener("touchstart", touchStart);
+    carouselWrapper.addEventListener("touchmove", touchDrag);
+    carouselWrapper.addEventListener("touchend", dragEnd);
 
-        // Touch events for mobile
-        carouselWrapper.addEventListener("touchstart", touchStart);
-        carouselWrapper.addEventListener("touchmove", touchDrag);
-        carouselWrapper.addEventListener("touchend", dragEnd);
+    // Arrow buttons click events
+    leftBtn.addEventListener("click", () => moveCarousel(-1));
+    rightBtn.addEventListener("click", () => moveCarousel(1));
+  }
 
-        // Arrow buttons click events
-        leftBtn.addEventListener("click", moveToPreviousCard);
-        rightBtn.addEventListener("click", moveToNextCard);
-      }
+  function updateRightSideDisplay(index) {
+    const cardIndex = (index + totalCards) % totalCards;
+    const currentCard = carouselCards[cardIndex];
 
-      function updateRightSideDisplay(index) {
-        const cardIndex = index % totalCards;
-        const currentCard = carouselCards[cardIndex];
+    if (currentCard) {
+      rightTrophyImg.src = currentCard.dataset.trophy;
+      rightYearBadge.src = currentCard.dataset.yearBadge;
+      rightYearBadge.alt = currentCard.dataset.yearText;
+      rightAwardTitle.textContent = currentCard.dataset.title;
+    }
+  }
 
-        if (currentCard) {
-          rightTrophyImg.src = currentCard.dataset.trophy;
-          rightYearBadge.src = currentCard.dataset.yearBadge;
-          rightYearBadge.alt = currentCard.dataset.yearText;
-          rightAwardTitle.textContent = currentCard.dataset.title;
-        }
-      }
+  function updateCarouselPosition() {
+    const translateX = -currentIndex * cardTotalWidth;
+    carouselTrack.style.transform = `translateX(${translateX}px)`;
+    currentTranslate = translateX;
+    prevTranslate = translateX; // এখানে prevTranslate আপডেট করা হচ্ছে
+  }
 
-      function updateCarouselPosition() {
-        const translateX = -currentIndex * cardTotalWidth;
-        carouselTrack.style.transform = `translateX(${translateX}px)`;
-        currentTranslate = translateX;
-        prevTranslate = translateX;
-      }
-
-      function moveToNextCard() {
-        if (isTransitioning) return;
-
-        isTransitioning = true;
-        currentIndex++;
-
-        // Update carousel position with smooth transition
-        updateCarouselPosition();
-
-        // Update right side display
-        updateRightSideDisplay(currentIndex % totalCards);
-
-        // Check if we've reached the end of original cards
-        if (currentIndex >= totalCards) {
-          // Wait for transition to complete, then instantly reset to beginning
-          setTimeout(() => {
-            carouselTrack.style.transition = "none";
-            currentIndex = 0;
-            updateCarouselPosition();
-
-            // Force reflow
-            void carouselTrack.offsetWidth;
-
-            // Restore transition
-            carouselTrack.style.transition = "transform 0.8s ease-in-out";
-            isTransitioning = false;
-          }, 800);
-        } else {
-          setTimeout(() => {
-            isTransitioning = false;
-          }, 800);
-        }
-      }
-
-      function moveToPreviousCard() {
-        if (isTransitioning) return;
-
-        isTransitioning = true;
-
-        if (currentIndex <= 0) {
-          // If at the beginning, jump to the last original card (clones)
-          carouselTrack.style.transition = "none";
-          currentIndex = totalCards;
-          updateCarouselPosition();
-
-          // Force reflow
-          void carouselTrack.offsetWidth;
-
-          // Restore transition and move to previous
-          carouselTrack.style.transition = "transform 0.8s ease-in-out";
-          currentIndex--;
-          updateCarouselPosition();
-        } else {
-          currentIndex--;
-          updateCarouselPosition();
-        }
-
-        // Update right side display
-        updateRightSideDisplay(currentIndex % totalCards);
-
-        setTimeout(() => {
-          isTransitioning = false;
-        }, 800);
-      }
-
-      // Dragging functionality
-      function dragStart(e) {
-        if (isTransitioning) return;
-        
-        stopAutoScroll();
-        isDragging = true;
-        startPosition = getPositionX(e);
-        carouselWrapper.classList.add("dragging");
+  function moveCarousel(direction) {
+    if (isTransitioning) return;
+    
+    isTransitioning = true;
+    carouselTrack.style.transition = "transform 0.6s ease-in-out";
+    
+    // Update index
+    currentIndex += direction;
+    
+    // Update carousel position
+    updateCarouselPosition();
+    
+    // Update right side display with the actual card index
+    const displayIndex = ((currentIndex - 3) + totalCards) % totalCards;
+    updateRightSideDisplay(displayIndex);
+    
+    // Handle infinite scroll loop
+    setTimeout(() => {
+      // If we've moved past the end (into clone territory), jump to beginning
+      if (currentIndex >= totalCards + 3) {
         carouselTrack.style.transition = "none";
-        
-        // Start animation
-        animationID = requestAnimationFrame(animation);
+        currentIndex = 3; // Jump back to first original card
+        updateCarouselPosition();
       }
-
-      function drag(e) {
-        if (!isDragging) return;
-        e.preventDefault();
-        
-        const currentPosition = getPositionX(e);
-        const diff = currentPosition - startPosition;
-        currentTranslate = prevTranslate + diff;
-        
-        // Apply the drag movement
-        carouselTrack.style.transform = `translateX(${currentTranslate}px)`;
+      // If we've moved before the beginning (into clone territory), jump to end
+      else if (currentIndex < 3) {
+        carouselTrack.style.transition = "none";
+        currentIndex = totalCards + 2; // Jump to last original card
+        updateCarouselPosition();
       }
+      
+      // Restore transition
+      setTimeout(() => {
+        carouselTrack.style.transition = "transform 0.6s ease-in-out";
+        isTransitioning = false;
+      }, 50);
+    }, 600);
+  }
 
-      function dragEnd() {
-        if (!isDragging) return;
-        
-        isDragging = false;
-        carouselWrapper.classList.remove("dragging");
-        cancelAnimationFrame(animationID);
-        
-        // Calculate how many cards to move based on drag distance
-        const movedBy = currentTranslate - prevTranslate;
-        
-        if (Math.abs(movedBy) > cardTotalWidth / 3) {
-          if (movedBy < 0) {
-            // Dragged left - next card
-            moveToNextCard();
-          } else {
-            // Dragged right - previous card
-            moveToPreviousCard();
-          }
-        } else {
-          // Not enough drag, snap back to current position
-          carouselTrack.style.transition = "transform 0.5s ease-in-out";
-          carouselTrack.style.transform = `translateX(${prevTranslate}px)`;
-          
-          setTimeout(() => {
-            carouselTrack.style.transition = "transform 0.8s ease-in-out";
-            startAutoScroll();
-          }, 500);
+  // Dragging functionality
+  function dragStart(e) {
+    if (isTransitioning) return;
+    
+    stopAutoScroll();
+    isDragging = true;
+    startPosition = getPositionX(e);
+    carouselWrapper.classList.add("dragging");
+    carouselTrack.style.transition = "none";
+    
+    // Start animation
+    animationID = requestAnimationFrame(animation);
+  }
+
+  function drag(e) {
+    if (!isDragging) return;
+    e.preventDefault();
+    
+    const currentPosition = getPositionX(e);
+    const diff = currentPosition - startPosition;
+    currentTranslate = prevTranslate + diff;
+    
+    // Apply the drag movement
+    carouselTrack.style.transform = `translateX(${currentTranslate}px)`;
+  }
+
+  function dragEnd() {
+    if (!isDragging) return;
+    
+    isDragging = false;
+    carouselWrapper.classList.remove("dragging");
+    cancelAnimationFrame(animationID);
+    
+    // Calculate how many cards to move based on drag distance
+    const movedBy = currentTranslate - prevTranslate;
+    
+    if (Math.abs(movedBy) > cardTotalWidth / 3) {
+      carouselTrack.style.transition = "transform 0.6s ease-in-out";
+      
+      if (movedBy < 0) {
+        // Dragged left - move to next card
+        currentIndex++;
+      } else {
+        // Dragged right - move to previous card
+        currentIndex--;
+      }
+      
+      // Update carousel position
+      updateCarouselPosition();
+      
+      // Update right side display
+      const displayIndex = ((currentIndex - 3) + totalCards) % totalCards;
+      updateRightSideDisplay(displayIndex);
+      
+      // Handle infinite scroll loop
+      setTimeout(() => {
+        // If we've moved past the end (into clone territory), jump to beginning
+        if (currentIndex >= totalCards + 3) {
+          carouselTrack.style.transition = "none";
+          currentIndex = 3; // Jump back to first original card
+          updateCarouselPosition();
         }
-      }
-
-      // Touch events
-      function touchStart(e) {
-        if (isTransitioning) return;
-        stopAutoScroll();
-        dragStart(e.touches[0]);
-      }
-
-      function touchDrag(e) {
-        if (!isDragging) return;
-        drag(e.touches[0]);
-      }
-
-      function getPositionX(e) {
-        return e.type.includes("mouse") ? e.pageX : e.touches[0].clientX;
-      }
-
-      function animation() {
-        if (isDragging) {
-          requestAnimationFrame(animation);
+        // If we've moved before the beginning (into clone territory), jump to end
+        else if (currentIndex < 3) {
+          carouselTrack.style.transition = "none";
+          currentIndex = totalCards + 2; // Jump to last original card
+          updateCarouselPosition();
         }
-      }
+        
+        // Restore transition
+        setTimeout(() => {
+          carouselTrack.style.transition = "transform 0.6s ease-in-out";
+        }, 50);
+      }, 600);
+      
+    } else {
+      // Not enough drag, snap back to current position
+      carouselTrack.style.transition = "transform 0.3s ease-out";
+      carouselTrack.style.transform = `translateX(${prevTranslate}px)`;
+      currentTranslate = prevTranslate; // Reset currentTranslate to match prevTranslate
+      
+      setTimeout(() => {
+        carouselTrack.style.transition = "transform 0.6s ease-in-out";
+        startAutoScroll();
+      }, 300);
+    }
+  }
 
-      function startAutoScroll() {
-        autoScrollInterval = setInterval(moveToNextCard, 4000);
-      }
+  // Touch events
+  function touchStart(e) {
+    if (isTransitioning) return;
+    stopAutoScroll();
+    dragStart(e.touches[0]);
+  }
 
-      function stopAutoScroll() {
-        clearInterval(autoScrollInterval);
-      }
+  function touchDrag(e) {
+    if (!isDragging) return;
+    drag(e.touches[0]);
+  }
 
-      // Pause on hover
-      carouselWrapper.addEventListener("mouseenter", stopAutoScroll);
-      carouselWrapper.addEventListener("mouseleave", startAutoScroll);
+  function getPositionX(e) {
+    return e.type.includes("mouse") ? e.pageX : e.touches[0].clientX;
+  }
 
-      // Initialize carousel
-      initializeCarousel();
-      startAutoScroll();
-    </script>
+  function animation() {
+    if (isDragging) {
+      requestAnimationFrame(animation);
+    }
+  }
+
+  function startAutoScroll() {
+    stopAutoScroll(); // Clear any existing interval
+    autoScrollInterval = setInterval(() => moveCarousel(1), 4000);
+  }
+
+  function stopAutoScroll() {
+    clearInterval(autoScrollInterval);
+  }
+
+  // Pause on hover
+  carouselWrapper.addEventListener("mouseenter", stopAutoScroll);
+  carouselWrapper.addEventListener("mouseleave", startAutoScroll);
+
+  // Initialize carousel when DOM is loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    initializeCarousel();
+    startAutoScroll();
+  });
+</script>
   </body>
 </html>
