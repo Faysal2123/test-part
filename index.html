@@ -47,82 +47,146 @@
       .carousel-card {
         flex: 0 0 auto;
       }
+      /* Hide right column on mobile */
+      @media (max-width: 1023px) {
+        .right-column-mobile-hidden {
+          display: none;
+        }
+      }
+      /* Mobile layout reorder and background colors */
+      @media (max-width: 1023px) {
+        .mobile-reorder {
+          display: flex;
+          flex-direction: column;
+        }
+        .mobile-text-first {
+          order: 1;
+          background-color: black;
+          padding: 0rem 1.5rem;
+          margin: 0rem 0rem 0 -1.5rem;
+          color: white;
+        }
+        .mobile-box-second {
+          order: 2;
+          margin-top: 0;
+          background-color: black;
+          padding: 1rem 0rem;
+          color: white;
+        }
+        .mobile-carousel-last {
+          order: 3;
+          margin-top: 0;
+          background-color: white;
+          padding: 2rem 1.5rem;
+          margin: 0 -1.5rem -2rem -1.5rem;
+          border-radius: 20px 20px 0 0;
+          position: relative;
+          z-index: 1;
+        }
+        /* Adjust text colors for black background */
+        .mobile-black-bg h1,
+        .mobile-black-bg p {
+          color: white !important;
+        }
+        /* Make the right box text white on mobile */
+        .mobile-right-box h2,
+        .mobile-right-box p {
+          color: white !important;
+        }
+        /* Black background wrapper for text and right box */
+        .mobile-black-section {
+          background-color: black;
+          margin: -2rem -1.5rem 0 -1.5rem;
+          padding: 2rem 1.5rem 0 1.5rem;
+          color: white;
+        }
+      }
+      /* Desktop styles */
+      @media (min-width: 1024px) {
+        .mobile-black-section {
+          background-color: transparent;
+          margin: 0;
+          padding: 0;
+          color: inherit;
+        }
+        .mobile-text-first,
+        .mobile-box-second,
+        .mobile-carousel-last {
+          background-color: transparent;
+          padding: 0;
+          margin: 0;
+          color: inherit;
+        }
+      }
     </style>
   </head>
   <body class="bg-gray-100">
-    <section class="py-16 px-4 md:px-8 lg:px-16">
+    <section class="md:py-16 md:px-8 lg:px-16">
       <div class="w-11/12 mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-          <!-- Left Column -->
+          <!-- Left Column - For desktop this contains both text and carousel -->
           <div class="lg:col-span-2">
-            <h1
-              class="text-4xl md:text-[45px] font-bold text-black uppercase mb-6 font-roboto-condensed mb-[68px]"
-            >
-              AN AWARD-WINNING PLATFORM!
-            </h1>
+            <!-- Mobile Black Background Section (Text + Right Box) -->
+            <div class="mobile-black-section mobile-reorder">
+              <!-- Text Content -->
+              <div class="mobile-text-first">
+                <h1
+                  class="text-[30px] md:text-[45px] md:text-start text-center font-bold text-white md:text-black uppercase mb-6 font-roboto-condensed md:mb-[68px] mb-[35px] pt-[60px] md:pt-[0px]"
+                >
+                  AN AWARD-WINNING PLATFORM!
+                </h1>
 
-            <p
-              class="text-[21px] md:w-[620px] text-black mb-6 leading-relaxed font-roboto-condensed"
-            >
-              Axia has been honored with multiple prestigious industry awards
-              for its exceptional platform. This recognition is a testament to
-              our unwavering commitment to providing you with an unparalleled
-              online experience.
-            </p>
+                <p
+                  class="md:text-[21px] text-[14px] md:w-[620px] md:text-start text-center text-white md:text-black md:mb-6 leading-relaxed font-roboto-condensed mb-[25px]"
+                >
+                  Axia has been honored with multiple prestigious industry
+                  awards for its exceptional platform. This recognition is a
+                  testament to our unwavering commitment to providing you with
+                  an unparalleled online experience.
+                </p>
 
-            <p
-              class="text-[21px] md:w-[600px] text-black mb-8 leading-relaxed font-roboto-condensed md:mb-[50px]"
-            >
-              Experience our acclaimed platform today and unlock a world of
-              possibilities!
-            </p>
-
-            <!-- Awards Carousel -->
-            <div class="relative">
-              <!-- Left Arrow Icon -->
-              <div class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10">
-                <button class="carousel-left-btn w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 hover:shadow-xl transition-all duration-300">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                  </svg>
-                </button>
-              </div>
-              
-              <!-- Right Arrow Icon -->
-              <div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10">
-                <button class="carousel-right-btn w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 hover:shadow-xl transition-all duration-300">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
+                <p
+                  class="md:text-[21px] text-[14px] md:w-[600px] md:text-start text-center text-white md:text-black  leading-relaxed font-roboto-condensed md:mb-[50px]"
+                >
+                  Experience our acclaimed platform today and unlock a world of
+                  possibilities!
+                </p>
               </div>
 
-              <div class="carousel-wrapper overflow-hidden">
-                <div class="carousel-track flex gap-6">
-                  <!-- Award Cards -->
-                  <div
-                    class="flex-shrink-0 w-[256px] bg-white rounded-lg shadow-md px-2 pt-6 pb-3 carousel-card"
-                    data-trophy="assets/big-mena.png"
-                    data-year-badge="assets/en-award-2021.webp"
-                    data-year-text="2021"
-                    data-title="BEST TRADING PLATFORM IN MENA REGION"
-                  >
-                    <div class="flex items-start justify-between mb-4 gap-4">
-                      <img
-                        src="assets/big-mena.png"
-                        alt="Award Trophy"
-                        class="w-20 h-[120px] object-contain mb-3"
-                      />
-                      <div>
+              <!-- Right Column Box for Mobile Only (shown between text and carousel) -->
+              <div
+                class="mobile-box-second mobile-right-box lg:hidden mt-0 mb-0"
+              >
+                <div class="bg-black p-4">
+                  <div class="flex flex-col items-center">
+                    <div class=" flex flex-row w-full items-center">
+                      <!-- Trophy Image -->
+                      <div class="w-1/2 flex justify-center ">
                         <img
-                          src="assets/en-award-2021.webp"
-                          alt="2021"
-                          class="w-[65px] h-[50px] object-contain"
+                          id="mobile-right-trophy-img"
+                          src="assets/big-mena.png"
+                          alt="Large Award Trophy"
+                          class="w-[500px] h-[400px] object-contain "
                         />
-                        <div class="flex items-start mt-2">
-                          <div class="w-2.5 h-16 bg-black mr-3"></div>
+                      </div>
+
+                      <!-- Year Badge and Text -->
+                      <div class="w-1/2 pl-4">
+                        <div class="mb-4 flex justify-start">
+                          <img
+                            id="mobile-right-year-badge"
+                            src="assets/en-award-2021.webp"
+                            alt="2021"
+                            class="w-[100px] h-[80px] object-contain"
+                          />
+                        </div>
+                        <div class="flex">
+                          <div
+                            class="w-2 h-20 bg-yellow-400 mr-3 flex-shrink-0"
+                          ></div>
                           <p
-                            class="text-[16px] font-semibold text-black uppercase font-roboto-condensed"
+                            id="mobile-right-award-title"
+                            class="text-[14px] font-bold text-white uppercase font-roboto-condensed"
                           >
                             BEST TRADING PLATFORM IN MENA REGION
                           </p>
@@ -130,157 +194,248 @@
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
 
-                  <div
-                    class="flex-shrink-0 w-[256px] bg-white rounded-lg shadow-md px-2 pt-6 pb-3 carousel-card"
-                    data-trophy="assets/big-growing.webp"
-                    data-year-badge="assets/en-award-2022.webp"
-                    data-year-text="2022"
-                    data-title="MOST TRUSTED EMERGING FOREX BROKER GCC"
+            <!-- Awards Carousel (White Background on Mobile) -->
+            <div class="mobile-carousel-last">
+              <div class="relative">
+                <!-- Left Arrow Icon -->
+                <div
+                  class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-10"
+                >
+                  <button
+                    class="carousel-left-btn w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 hover:shadow-xl transition-all duration-300"
                   >
-                    <div class="flex items-start justify-between mb-4 gap-6">
-                      <img
-                        src="assets/big-growing.webp"
-                        alt="Award Trophy"
-                        class="w-20 h-[120px] object-contain mb-3"
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-6 w-6 text-gray-700"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M15 19l-7-7 7-7"
                       />
-                      <div>
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Right Arrow Icon -->
+                <div
+                  class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10"
+                >
+                  <button
+                    class="carousel-right-btn w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 hover:shadow-xl transition-all duration-300"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-6 w-6 text-gray-700"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </button>
+                </div>
+
+                <div class="carousel-wrapper overflow-hidden">
+                  <div class="carousel-track flex gap-6">
+                    <!-- Award Cards -->
+                    <div
+                      class="flex-shrink-0 w-[256px] bg-white rounded-lg shadow-md px-2 pt-6 pb-3 carousel-card"
+                      data-trophy="assets/big-mena.png"
+                      data-year-badge="assets/en-award-2021.webp"
+                      data-year-text="2021"
+                      data-title="BEST TRADING PLATFORM IN MENA REGION"
+                    >
+                      <div class="flex items-start justify-between mb-4 gap-4">
                         <img
-                          src="assets/en-award-2022.webp"
-                          alt="2022"
-                          class="w-[65px] h-[50px] object-contain"
+                          src="assets/big-mena.png"
+                          alt="Award Trophy"
+                          class="w-20 h-[120px] object-contain mb-3"
                         />
-                        <div class="flex items-start mt-3">
-                          <div class="w-2 h-14 bg-black mr-3"></div>
-                          <p
-                            class="text-[16px] font-bold text-gray-900 uppercase font-roboto-condensed "
-                          >
-                            MOST TRUSTED EMERGING FOREX BROKER GCC
-                          </p>
+                        <div>
+                          <img
+                            src="assets/en-award-2021.webp"
+                            alt="2021"
+                            class="w-[65px] h-[50px] object-contain"
+                          />
+                          <div class="flex items-start mt-2">
+                            <div
+                              class="w-2.5 h-16 bg-black text-white mr-3"
+                            ></div>
+                            <p
+                              class="text-[16px] font-semibold text-black uppercase font-roboto-condensed"
+                            >
+                              BEST TRADING PLATFORM IN MENA REGION
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div
-                    class="flex-shrink-0 w-[256px] bg-white rounded-lg shadow-md px-2 pt-6 pb-3 carousel-card"
-                    data-trophy="assets/big-growing.webp"
-                    data-year-badge="assets/en-award-2022.webp"
-                    data-year-text="2022"
-                    data-title="BEST TRADING PLATFORM IN MENA REGION"
-                  >
-                    <div class="flex items-start justify-between mb-4 gap-6">
-                      <img
-                        src="assets/big-growing.webp"
-                        alt="Award Trophy"
-                        class="w-20 h-[120px] object-contain mb-3"
-                      />
-                      <div>
+                    <div
+                      class="flex-shrink-0 w-[256px] bg-white rounded-lg shadow-md px-2 pt-6 pb-3 carousel-card"
+                      data-trophy="assets/big-growing.webp"
+                      data-year-badge="assets/en-award-2022.webp"
+                      data-year-text="2022"
+                      data-title="MOST TRUSTED EMERGING FOREX BROKER GCC"
+                    >
+                      <div class="flex items-start justify-between mb-4 gap-6">
                         <img
-                          src="assets/en-award-2022.webp"
-                          alt="2022"
-                          class="w-[65px] h-[50px] object-contain"
+                          src="assets/big-growing.webp"
+                          alt="Award Trophy"
+                          class="w-20 h-[120px] object-contain mb-3"
                         />
-                        <div class="flex items-start mt-3">
-                          <div class="w-2 h-14 bg-black mr-3"></div>
-                          <p
-                            class="text-[16px] font-bold text-gray-900 uppercase font-roboto-condensed"
-                          >
-                            BEST TRADING PLATFORM IN MENA REGION
-                          </p>
+                        <div>
+                          <img
+                            src="assets/en-award-2022.webp"
+                            alt="2022"
+                            class="w-[65px] h-[50px] object-contain"
+                          />
+                          <div class="flex items-start mt-3">
+                            <div class="w-2 h-14 bg-black mr-3"></div>
+                            <p
+                              class="text-[16px] font-bold text-gray-900 uppercase font-roboto-condensed"
+                            >
+                              MOST TRUSTED EMERGING FOREX BROKER GCC
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div
-                    class="flex-shrink-0 w-[256px] bg-white rounded-lg shadow-md px-2 pt-6 pb-3 carousel-card"
-                    data-trophy="assets/big-reliable.webp"
-                    data-year-badge="assets/en-award-2023.webp"
-                    data-year-text="2023"
-                    data-title="MOST INNOVATIVE CFD BROKER GCC"
-                  >
-                    <div class="flex items-start justify-between mb-4 gap-6">
-                      <img
-                        src="assets/big-reliable.webp"
-                        alt="Award Trophy"
-                        class="w-20 h-[120px] object-contain mb-3"
-                      />
-                      <div>
+                    <div
+                      class="flex-shrink-0 w-[256px] bg-white rounded-lg shadow-md px-2 pt-6 pb-3 carousel-card"
+                      data-trophy="assets/big-growing.webp"
+                      data-year-badge="assets/en-award-2022.webp"
+                      data-year-text="2022"
+                      data-title="BEST TRADING PLATFORM IN MENA REGION"
+                    >
+                      <div class="flex items-start justify-between mb-4 gap-6">
                         <img
-                          src="assets/en-award-2023.webp"
-                          alt="2023"
-                          class="w-[65px] h-[50px] object-contain"
+                          src="assets/big-growing.webp"
+                          alt="Award Trophy"
+                          class="w-20 h-[120px] object-contain mb-3"
                         />
-                        <div class="flex items-start mt-3">
-                          <div class="w-2 h-12 bg-black mr-3"></div>
-                          <p
-                            class="text-[16px] font-bold text-gray-900 uppercase font-roboto-condensed"
-                          >
-                            MOST INNOVATIVE CFD BROKER GCC
-                          </p>
+                        <div>
+                          <img
+                            src="assets/en-award-2022.webp"
+                            alt="2022"
+                            class="w-[65px] h-[50px] object-contain"
+                          />
+                          <div class="flex items-start mt-3">
+                            <div class="w-2 h-14 bg-black mr-3"></div>
+                            <p
+                              class="text-[16px] font-bold text-gray-900 uppercase font-roboto-condensed"
+                            >
+                              BEST TRADING PLATFORM IN MENA REGION
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div
-                    class="flex-shrink-0 w-[256px] bg-white rounded-lg shadow-md px-2 pt-6 pb-3 carousel-card"
-                    data-trophy="assets/big-growing.webp"
-                    data-year-badge="assets/en-award-2023.webp"
-                    data-year-text="2023"
-                    data-title="MOST RELIABLE CFD BROKER GCC"
-                  >
-                    <div class="flex items-start justify-between mb-4 gap-6">
-                      <img
-                        src="assets/big-growing.webp"
-                        alt="Award Trophy"
-                        class="w-20 h-[120px] object-contain mb-3"
-                      />
-                      <div>
+                    <div
+                      class="flex-shrink-0 w-[256px] bg-white rounded-lg shadow-md px-2 pt-6 pb-3 carousel-card"
+                      data-trophy="assets/big-reliable.webp"
+                      data-year-badge="assets/en-award-2023.webp"
+                      data-year-text="2023"
+                      data-title="MOST INNOVATIVE CFD BROKER GCC"
+                    >
+                      <div class="flex items-start justify-between mb-4 gap-6">
                         <img
-                          src="assets/en-award-2023.webp"
-                          alt="2023"
-                          class="w-[65px] h-[50px] object-contain"
+                          src="assets/big-reliable.webp"
+                          alt="Award Trophy"
+                          class="w-20 h-[120px] object-contain mb-3"
                         />
-                        <div class="flex items-start mt-3">
-                          <div class="w-2 h-12 bg-black mr-3"></div>
-                          <p
-                            class="text-[16px] font-bold text-gray-900 uppercase font-roboto-condensed"
-                          >
-                            MOST RELIABLE CFD BROKER GCC
-                          </p>
+                        <div>
+                          <img
+                            src="assets/en-award-2023.webp"
+                            alt="2023"
+                            class="w-[65px] h-[50px] object-contain"
+                          />
+                          <div class="flex items-start mt-3">
+                            <div class="w-2 h-12 bg-black mr-3"></div>
+                            <p
+                              class="text-[16px] font-bold text-gray-900 uppercase font-roboto-condensed"
+                            >
+                              MOST INNOVATIVE CFD BROKER GCC
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div
-                    class="flex-shrink-0 w-[256px] bg-white rounded-lg shadow-md px-2 pt-6 pb-3 carousel-card"
-                    data-trophy="assets/big-growing.webp"
-                    data-year-badge="assets/en-award-2023.webp"
-                    data-year-text="2023"
-                    data-title="FASTEST GROWING CFD BROKER GCC"
-                  >
-                    <div class="flex items-start justify-between mb-4 gap-6">
-                      <img
-                        src="assets/big-growing.webp"
-                        alt="Award Trophy"
-                        class="w-20 h-[120px] object-contain mb-3"
-                      />
-                      <div>
+                    <div
+                      class="flex-shrink-0 w-[256px] bg-white rounded-lg shadow-md px-2 pt-6 pb-3 carousel-card"
+                      data-trophy="assets/big-growing.webp"
+                      data-year-badge="assets/en-award-2023.webp"
+                      data-year-text="2023"
+                      data-title="MOST RELIABLE CFD BROKER GCC"
+                    >
+                      <div class="flex items-start justify-between mb-4 gap-6">
                         <img
-                          src="assets/en-award-2023.webp"
-                          alt="2023"
-                          class="w-[65px] h-[50px] object-contain"
+                          src="assets/big-growing.webp"
+                          alt="Award Trophy"
+                          class="w-20 h-[120px] object-contain mb-3"
                         />
-                        <div class="flex items-start mt-3 ">
-                          <div class="w-2 h-12 bg-black mr-3"></div>
-                          <p
-                            class="text-[16px] font-bold text-gray-900 uppercase font-roboto-condensed"
-                          >
-                            FASTEST GROWING CFD BROKER GCC
-                          </p>
+                        <div>
+                          <img
+                            src="assets/en-award-2023.webp"
+                            alt="2023"
+                            class="w-[65px] h-[50px] object-contain"
+                          />
+                          <div class="flex items-start mt-3">
+                            <div class="w-2 h-12 bg-black mr-3"></div>
+                            <p
+                              class="text-[16px] font-bold text-gray-900 uppercase font-roboto-condensed"
+                            >
+                              MOST RELIABLE CFD BROKER GCC
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="flex-shrink-0 w-[256px] bg-white rounded-lg shadow-md px-2 pt-6 pb-3 carousel-card"
+                      data-trophy="assets/big-growing.webp"
+                      data-year-badge="assets/en-award-2023.webp"
+                      data-year-text="2023"
+                      data-title="FASTEST GROWING CFD BROKER GCC"
+                    >
+                      <div class="flex items-start justify-between mb-4 gap-6">
+                        <img
+                          src="assets/big-growing.webp"
+                          alt="Award Trophy"
+                          class="w-20 h-[120px] object-contain mb-3"
+                        />
+                        <div>
+                          <img
+                            src="assets/en-award-2023.webp"
+                            alt="2023"
+                            class="w-[65px] h-[50px] object-contain"
+                          />
+                          <div class="flex items-start mt-3">
+                            <div class="w-2 h-12 bg-black mr-3"></div>
+                            <p
+                              class="text-[16px] font-bold text-gray-900 uppercase font-roboto-condensed"
+                            >
+                              FASTEST GROWING CFD BROKER GCC
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -290,8 +445,8 @@
             </div>
           </div>
 
-          <!-- Right Column -->
-          <div class="lg:col-span-1 md:mt-[90px]">
+          <!-- Right Column - Desktop Only -->
+          <div class="lg:col-span-1 md:mt-[120px] right-column-mobile-hidden">
             <div class="bg-white rounded-lg shadow-lg p-4 sticky top-8">
               <div class="flex flex-col items-center">
                 <div class="mb-6 flex w-full items-center">
@@ -319,7 +474,7 @@
                       <div class="w-2 h-22 bg-black mr-4 flex-shrink-0"></div>
                       <p
                         id="right-award-title"
-                        class="text-[24px] font-bold text-gray-900 uppercase  font-roboto-condensed"
+                        class="text-[24px] font-bold text-gray-900 uppercase font-roboto-condensed"
                       >
                         BEST TRADING PLATFORM IN MENA REGION
                       </p>
@@ -334,254 +489,271 @@
     </section>
 
     <script>
-  const carouselTrack = document.querySelector(".carousel-track");
-  const carouselCards = document.querySelectorAll(".carousel-card:not(.cloned-card)");
-  const carouselWrapper = document.querySelector(".carousel-wrapper");
-  const cardWidth = 256;
-  const gap = 24;
-  const cardTotalWidth = cardWidth + gap;
-  let currentIndex = 0;
-  const totalCards = carouselCards.length;
-  let isTransitioning = false;
-  let autoScrollInterval;
-  let isDragging = false;
-  let startPosition = 0;
-  let currentTranslate = 0;
-  let prevTranslate = 0;
-  let animationID = 0;
+      const carouselTrack = document.querySelector(".carousel-track");
+      const carouselCards = document.querySelectorAll(
+        ".carousel-card:not(.cloned-card)"
+      );
+      const carouselWrapper = document.querySelector(".carousel-wrapper");
+      const cardWidth = 256;
+      const gap = 24;
+      const cardTotalWidth = cardWidth + gap;
+      let currentIndex = 0;
+      const totalCards = carouselCards.length;
+      let isTransitioning = false;
+      let autoScrollInterval;
+      let isDragging = false;
+      let startPosition = 0;
+      let currentTranslate = 0;
+      let prevTranslate = 0;
+      let animationID = 0;
 
-  const rightTrophyImg = document.getElementById("right-trophy-img");
-  const rightYearBadge = document.getElementById("right-year-badge");
-  const rightAwardTitle = document.getElementById("right-award-title");
-  const leftBtn = document.querySelector(".carousel-left-btn");
-  const rightBtn = document.querySelector(".carousel-right-btn");
+      const rightTrophyImg = document.getElementById("right-trophy-img");
+      const rightYearBadge = document.getElementById("right-year-badge");
+      const rightAwardTitle = document.getElementById("right-award-title");
+      const mobileRightTrophyImg = document.getElementById(
+        "mobile-right-trophy-img"
+      );
+      const mobileRightYearBadge = document.getElementById(
+        "mobile-right-year-badge"
+      );
+      const mobileRightAwardTitle = document.getElementById(
+        "mobile-right-award-title"
+      );
+      const leftBtn = document.querySelector(".carousel-left-btn");
+      const rightBtn = document.querySelector(".carousel-right-btn");
 
-  // Initialize carousel with proper infinite scroll
-  function initializeCarousel() {
-    // Clone first few cards and append to the end for seamless infinite scroll
-    for (let i = 0; i < 3; i++) {
-      const clone = carouselCards[i].cloneNode(true);
-      clone.classList.add("cloned-card");
-      carouselTrack.appendChild(clone);
-    }
-    
-    // Clone last few cards and prepend to the beginning
-    for (let i = totalCards - 3; i < totalCards; i++) {
-      const clone = carouselCards[i].cloneNode(true);
-      clone.classList.add("cloned-card");
-      carouselTrack.insertBefore(clone, carouselTrack.firstChild);
-    }
-    
-    // Set initial position to show first original card (after clones)
-    currentIndex = 3;
-    updateCarouselPosition();
-    updateRightSideDisplay(0);
-    setupEventListeners();
-  }
+      // Initialize carousel with proper infinite scroll
+      function initializeCarousel() {
+        // Clone first few cards and append to the end for seamless infinite scroll
+        for (let i = 0; i < 3; i++) {
+          const clone = carouselCards[i].cloneNode(true);
+          clone.classList.add("cloned-card");
+          carouselTrack.appendChild(clone);
+        }
 
-  function setupEventListeners() {
-    // Mouse events for dragging
-    carouselWrapper.addEventListener("mousedown", dragStart);
-    carouselWrapper.addEventListener("mousemove", drag);
-    carouselWrapper.addEventListener("mouseup", dragEnd);
-    carouselWrapper.addEventListener("mouseleave", dragEnd);
+        // Clone last few cards and prepend to the beginning
+        for (let i = totalCards - 3; i < totalCards; i++) {
+          const clone = carouselCards[i].cloneNode(true);
+          clone.classList.add("cloned-card");
+          carouselTrack.insertBefore(clone, carouselTrack.firstChild);
+        }
 
-    // Touch events for mobile
-    carouselWrapper.addEventListener("touchstart", touchStart);
-    carouselWrapper.addEventListener("touchmove", touchDrag);
-    carouselWrapper.addEventListener("touchend", dragEnd);
-
-    // Arrow buttons click events
-    leftBtn.addEventListener("click", () => moveCarousel(-1));
-    rightBtn.addEventListener("click", () => moveCarousel(1));
-  }
-
-  function updateRightSideDisplay(index) {
-    const cardIndex = (index + totalCards) % totalCards;
-    const currentCard = carouselCards[cardIndex];
-
-    if (currentCard) {
-      rightTrophyImg.src = currentCard.dataset.trophy;
-      rightYearBadge.src = currentCard.dataset.yearBadge;
-      rightYearBadge.alt = currentCard.dataset.yearText;
-      rightAwardTitle.textContent = currentCard.dataset.title;
-    }
-  }
-
-  function updateCarouselPosition() {
-    const translateX = -currentIndex * cardTotalWidth;
-    carouselTrack.style.transform = `translateX(${translateX}px)`;
-    currentTranslate = translateX;
-    prevTranslate = translateX; // এখানে prevTranslate আপডেট করা হচ্ছে
-  }
-
-  function moveCarousel(direction) {
-    if (isTransitioning) return;
-    
-    isTransitioning = true;
-    carouselTrack.style.transition = "transform 0.6s ease-in-out";
-    
-    // Update index
-    currentIndex += direction;
-    
-    // Update carousel position
-    updateCarouselPosition();
-    
-    // Update right side display with the actual card index
-    const displayIndex = ((currentIndex - 3) + totalCards) % totalCards;
-    updateRightSideDisplay(displayIndex);
-    
-    // Handle infinite scroll loop
-    setTimeout(() => {
-      // If we've moved past the end (into clone territory), jump to beginning
-      if (currentIndex >= totalCards + 3) {
-        carouselTrack.style.transition = "none";
-        currentIndex = 3; // Jump back to first original card
+        // Set initial position to show first original card (after clones)
+        currentIndex = 3;
         updateCarouselPosition();
+        updateRightSideDisplay(0);
+        setupEventListeners();
       }
-      // If we've moved before the beginning (into clone territory), jump to end
-      else if (currentIndex < 3) {
-        carouselTrack.style.transition = "none";
-        currentIndex = totalCards + 2; // Jump to last original card
-        updateCarouselPosition();
+
+      function setupEventListeners() {
+        // Mouse events for dragging
+        carouselWrapper.addEventListener("mousedown", dragStart);
+        carouselWrapper.addEventListener("mousemove", drag);
+        carouselWrapper.addEventListener("mouseup", dragEnd);
+        carouselWrapper.addEventListener("mouseleave", dragEnd);
+
+        // Touch events for mobile
+        carouselWrapper.addEventListener("touchstart", touchStart);
+        carouselWrapper.addEventListener("touchmove", touchDrag);
+        carouselWrapper.addEventListener("touchend", dragEnd);
+
+        // Arrow buttons click events
+        leftBtn.addEventListener("click", () => moveCarousel(-1));
+        rightBtn.addEventListener("click", () => moveCarousel(1));
       }
-      
-      // Restore transition
-      setTimeout(() => {
+
+      function updateRightSideDisplay(index) {
+        const cardIndex = (index + totalCards) % totalCards;
+        const currentCard = carouselCards[cardIndex];
+
+        if (currentCard) {
+          // Update desktop version
+          rightTrophyImg.src = currentCard.dataset.trophy;
+          rightYearBadge.src = currentCard.dataset.yearBadge;
+          rightYearBadge.alt = currentCard.dataset.yearText;
+          rightAwardTitle.textContent = currentCard.dataset.title;
+
+          // Update mobile version
+          mobileRightTrophyImg.src = currentCard.dataset.trophy;
+          mobileRightYearBadge.src = currentCard.dataset.yearBadge;
+          mobileRightYearBadge.alt = currentCard.dataset.yearText;
+          mobileRightAwardTitle.textContent = currentCard.dataset.title;
+        }
+      }
+
+      function updateCarouselPosition() {
+        const translateX = -currentIndex * cardTotalWidth;
+        carouselTrack.style.transform = `translateX(${translateX}px)`;
+        currentTranslate = translateX;
+        prevTranslate = translateX; // এখানে prevTranslate আপডেট করা হচ্ছে
+      }
+
+      function moveCarousel(direction) {
+        if (isTransitioning) return;
+
+        isTransitioning = true;
         carouselTrack.style.transition = "transform 0.6s ease-in-out";
-        isTransitioning = false;
-      }, 50);
-    }, 600);
-  }
 
-  // Dragging functionality
-  function dragStart(e) {
-    if (isTransitioning) return;
-    
-    stopAutoScroll();
-    isDragging = true;
-    startPosition = getPositionX(e);
-    carouselWrapper.classList.add("dragging");
-    carouselTrack.style.transition = "none";
-    
-    // Start animation
-    animationID = requestAnimationFrame(animation);
-  }
+        // Update index
+        currentIndex += direction;
 
-  function drag(e) {
-    if (!isDragging) return;
-    e.preventDefault();
-    
-    const currentPosition = getPositionX(e);
-    const diff = currentPosition - startPosition;
-    currentTranslate = prevTranslate + diff;
-    
-    // Apply the drag movement
-    carouselTrack.style.transform = `translateX(${currentTranslate}px)`;
-  }
+        // Update carousel position
+        updateCarouselPosition();
 
-  function dragEnd() {
-    if (!isDragging) return;
-    
-    isDragging = false;
-    carouselWrapper.classList.remove("dragging");
-    cancelAnimationFrame(animationID);
-    
-    // Calculate how many cards to move based on drag distance
-    const movedBy = currentTranslate - prevTranslate;
-    
-    if (Math.abs(movedBy) > cardTotalWidth / 3) {
-      carouselTrack.style.transition = "transform 0.6s ease-in-out";
-      
-      if (movedBy < 0) {
-        // Dragged left - move to next card
-        currentIndex++;
-      } else {
-        // Dragged right - move to previous card
-        currentIndex--;
-      }
-      
-      // Update carousel position
-      updateCarouselPosition();
-      
-      // Update right side display
-      const displayIndex = ((currentIndex - 3) + totalCards) % totalCards;
-      updateRightSideDisplay(displayIndex);
-      
-      // Handle infinite scroll loop
-      setTimeout(() => {
-        // If we've moved past the end (into clone territory), jump to beginning
-        if (currentIndex >= totalCards + 3) {
-          carouselTrack.style.transition = "none";
-          currentIndex = 3; // Jump back to first original card
-          updateCarouselPosition();
-        }
-        // If we've moved before the beginning (into clone territory), jump to end
-        else if (currentIndex < 3) {
-          carouselTrack.style.transition = "none";
-          currentIndex = totalCards + 2; // Jump to last original card
-          updateCarouselPosition();
-        }
-        
-        // Restore transition
+        // Update right side display with the actual card index
+        const displayIndex = (currentIndex - 3 + totalCards) % totalCards;
+        updateRightSideDisplay(displayIndex);
+
+        // Handle infinite scroll loop
         setTimeout(() => {
+          // If we've moved past the end (into clone territory), jump to beginning
+          if (currentIndex >= totalCards + 3) {
+            carouselTrack.style.transition = "none";
+            currentIndex = 3; // Jump back to first original card
+            updateCarouselPosition();
+          }
+          // If we've moved before the beginning (into clone territory), jump to end
+          else if (currentIndex < 3) {
+            carouselTrack.style.transition = "none";
+            currentIndex = totalCards + 2; // Jump to last original card
+            updateCarouselPosition();
+          }
+
+          // Restore transition
+          setTimeout(() => {
+            carouselTrack.style.transition = "transform 0.6s ease-in-out";
+            isTransitioning = false;
+          }, 50);
+        }, 600);
+      }
+
+      // Dragging functionality
+      function dragStart(e) {
+        if (isTransitioning) return;
+
+        stopAutoScroll();
+        isDragging = true;
+        startPosition = getPositionX(e);
+        carouselWrapper.classList.add("dragging");
+        carouselTrack.style.transition = "none";
+
+        // Start animation
+        animationID = requestAnimationFrame(animation);
+      }
+
+      function drag(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+
+        const currentPosition = getPositionX(e);
+        const diff = currentPosition - startPosition;
+        currentTranslate = prevTranslate + diff;
+
+        // Apply the drag movement
+        carouselTrack.style.transform = `translateX(${currentTranslate}px)`;
+      }
+
+      function dragEnd() {
+        if (!isDragging) return;
+
+        isDragging = false;
+        carouselWrapper.classList.remove("dragging");
+        cancelAnimationFrame(animationID);
+
+        // Calculate how many cards to move based on drag distance
+        const movedBy = currentTranslate - prevTranslate;
+
+        if (Math.abs(movedBy) > cardTotalWidth / 3) {
           carouselTrack.style.transition = "transform 0.6s ease-in-out";
-        }, 50);
-      }, 600);
-      
-    } else {
-      // Not enough drag, snap back to current position
-      carouselTrack.style.transition = "transform 0.3s ease-out";
-      carouselTrack.style.transform = `translateX(${prevTranslate}px)`;
-      currentTranslate = prevTranslate; // Reset currentTranslate to match prevTranslate
-      
-      setTimeout(() => {
-        carouselTrack.style.transition = "transform 0.6s ease-in-out";
+
+          if (movedBy < 0) {
+            // Dragged left - move to next card
+            currentIndex++;
+          } else {
+            // Dragged right - move to previous card
+            currentIndex--;
+          }
+
+          // Update carousel position
+          updateCarouselPosition();
+
+          // Update right side display
+          const displayIndex = (currentIndex - 3 + totalCards) % totalCards;
+          updateRightSideDisplay(displayIndex);
+
+          // Handle infinite scroll loop
+          setTimeout(() => {
+            // If we've moved past the end (into clone territory), jump to beginning
+            if (currentIndex >= totalCards + 3) {
+              carouselTrack.style.transition = "none";
+              currentIndex = 3; // Jump back to first original card
+              updateCarouselPosition();
+            }
+            // If we've moved before the beginning (into clone territory), jump to end
+            else if (currentIndex < 3) {
+              carouselTrack.style.transition = "none";
+              currentIndex = totalCards + 2; // Jump to last original card
+              updateCarouselPosition();
+            }
+
+            // Restore transition
+            setTimeout(() => {
+              carouselTrack.style.transition = "transform 0.6s ease-in-out";
+            }, 50);
+          }, 600);
+        } else {
+          // Not enough drag, snap back to current position
+          carouselTrack.style.transition = "transform 0.3s ease-out";
+          carouselTrack.style.transform = `translateX(${prevTranslate}px)`;
+          currentTranslate = prevTranslate; // Reset currentTranslate to match prevTranslate
+
+          setTimeout(() => {
+            carouselTrack.style.transition = "transform 0.6s ease-in-out";
+            startAutoScroll();
+          }, 300);
+        }
+      }
+
+      // Touch events
+      function touchStart(e) {
+        if (isTransitioning) return;
+        stopAutoScroll();
+        dragStart(e.touches[0]);
+      }
+
+      function touchDrag(e) {
+        if (!isDragging) return;
+        drag(e.touches[0]);
+      }
+
+      function getPositionX(e) {
+        return e.type.includes("mouse") ? e.pageX : e.touches[0].clientX;
+      }
+
+      function animation() {
+        if (isDragging) {
+          requestAnimationFrame(animation);
+        }
+      }
+
+      function startAutoScroll() {
+        stopAutoScroll(); // Clear any existing interval
+        autoScrollInterval = setInterval(() => moveCarousel(1), 4000);
+      }
+
+      function stopAutoScroll() {
+        clearInterval(autoScrollInterval);
+      }
+
+      // Pause on hover
+      carouselWrapper.addEventListener("mouseenter", stopAutoScroll);
+      carouselWrapper.addEventListener("mouseleave", startAutoScroll);
+
+      // Initialize carousel when DOM is loaded
+      document.addEventListener("DOMContentLoaded", function () {
+        initializeCarousel();
         startAutoScroll();
-      }, 300);
-    }
-  }
-
-  // Touch events
-  function touchStart(e) {
-    if (isTransitioning) return;
-    stopAutoScroll();
-    dragStart(e.touches[0]);
-  }
-
-  function touchDrag(e) {
-    if (!isDragging) return;
-    drag(e.touches[0]);
-  }
-
-  function getPositionX(e) {
-    return e.type.includes("mouse") ? e.pageX : e.touches[0].clientX;
-  }
-
-  function animation() {
-    if (isDragging) {
-      requestAnimationFrame(animation);
-    }
-  }
-
-  function startAutoScroll() {
-    stopAutoScroll(); // Clear any existing interval
-    autoScrollInterval = setInterval(() => moveCarousel(1), 4000);
-  }
-
-  function stopAutoScroll() {
-    clearInterval(autoScrollInterval);
-  }
-
-  // Pause on hover
-  carouselWrapper.addEventListener("mouseenter", stopAutoScroll);
-  carouselWrapper.addEventListener("mouseleave", startAutoScroll);
-
-  // Initialize carousel when DOM is loaded
-  document.addEventListener('DOMContentLoaded', function() {
-    initializeCarousel();
-    startAutoScroll();
-  });
-</script>
+      });
+    </script>
   </body>
 </html>
