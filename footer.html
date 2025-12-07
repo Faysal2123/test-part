@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Axia Style Footer</title>
+
+  <!-- Google Fonts: Roboto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Configure Tailwind to use Roboto as default font -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Roboto', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <style>
+    /* Force headings to use Roboto Bold */
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 700 !important;
+    }
+    /* Body text and links use Roboto Regular */
+    body, p, a, li, span {
+      font-weight: 400;
+    }
+    
+    /* Collapse transition */
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    
+    .accordion-content.open {
+      max-height: 500px;
+    }
+    
+    /* Plus icon rotation */
+    .plus-icon {
+      transition: transform 0.3s ease;
+      font-size: 1.25rem;
+    }
+    
+    .plus-icon.rotate-45 {
+      transform: rotate(45deg);
+    }
+    
+    /* Mobile optimizations */
+    @media (max-width: 768px) {
+      .mobile-accordion-section {
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .mobile-accordion-button {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 1rem 1rem;
+      }
+      .desktop-only {
+        display: none !important;
+      }
+    }
+    
+    @media (min-width: 769px) {
+      .mobile-accordion-section {
+        display: block !important;
+      }
+      .mobile-accordion-button {
+        display: none !important;
+      }
+      .accordion-content {
+        display: block !important;
+        max-height: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans">
+
+<footer class="bg-white py-8 md:py-10 border-t border-gray-200">
+  <div class="w-11/12 max-w-7xl mx-auto">
+
+    <!-- Payment Partners - Mobile Optimized -->
+    <div class="flex justify-center mb-8 md:mb-10">
+      <div class="flex gap-4 md:gap-8 items-center flex-wrap justify-center">
+        <img src="/assets/partner-1.webp" alt="Visa" class="h-6 md:h-8"/>
+        <img src="/assets/partner-2.webp" alt="Mastercard" class="h-6 md:h-8"/>
+        <img src="/assets/partner-3.webp" alt="Skrill" class="h-6 md:h-8"/>
+        <img src="/assets/partner-4.webp" alt="NETELLER" class="h-6 md:h-8"/>
+        <img src="/assets/partner-5.webp" alt="Bitcoin" class="h-6 md:h-8 rounded-full"/>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-16">
+      <!-- Column 1: App + Promo -->
+      <div class="space-y-8">
+        <div class="flex justify-center  items-center md:items-start flex-col">
+          <h3 class="text-[16px] md:text-[18px] font-bold text-gray-900 mb-4 md:mb-5">Download our app</h3>
+          <div class="flex flex-col gap-3 md:gap-4 ">
+            <a href="#" class="flex"><img src="/assets/app-store.webp" alt="App Store" class="w-36 md:w-40"/></a>
+            <a href="#" class="flex"><img src="/assets/google-store.webp" alt="Google Play" class="w-36 md:w-40"/></a>
+            <a href="#" class="flex"><img src="/assets/webtrade.webp" alt="Web Trade" class="w-36 md:w-40"/></a>
+          </div>
+        </div>
+
+        <!-- PROMOTIONS Button with Telegram Icon Inside -->
+        <div>
+          <a href="#" class="inline-flex items-center justify-center gap-2 px-5 py-3 md:px-7 md:py-3 bg-sky-500 hover:bg-sky-600 text-white font-medium rounded-lg transition duration-200 text-sm md:text-base shadow-md w-full md:w-auto">
+            <span>PROMOTIONS</span>
+            
+            <!-- Telegram Icon -->
+            <svg class="w-4 h-4 md:w-5 md:h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.5.5 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 3.996-1.627 4.454-1.627z"/>
+            </svg>
+          </a>
+        </div>
+         <!-- Find Us Online Section - Mobile Accordion -->
+        <div class="mobile-accordion-section ">
+          <!-- Mobile Accordion Button -->
+          <button class="mobile-accordion-button bg-black  md:bg-white text-white">
+            <span class="text-[16px] md:text-[18px] font-bold md:text-gray-900 ">Find Us Online</span>
+            <span class="plus-icon">+</span>
+          </button>
+          
+          <!-- Desktop Heading (hidden on mobile) -->
+          <h4 class="desktop-only text-[16px] md:text-[18px] font-bold text-gray-900 mb-4 md:mb-6">Find Us Online</h4>
+          
+          <!-- Accordion Content -->
+          <div class="accordion-content md:!max-h-none">
+            <div class="pt-4 md:pt-0">
+              <div class="flex gap-4">
+                <a href="#" class="w-10 h-10 md:w-12 md:h-12 bg-black rounded-full flex items-center justify-center text-white text-xl md:text-2xl hover:bg-gray-800 transition">X</a>
+                <a href="#" class="w-10 h-10 md:w-12 md:h-12 bg-black rounded-full flex items-center justify-center text-white hover:bg-gray-800 transition">
+                  <svg class="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <a href="#" class="w-10 h-10 md:w-12 md:h-12 bg-black rounded-full flex items-center justify-center text-white hover:bg-gray-800 transition">
+                  <svg class="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.645.069-4.849.069-3.204 0-3.584-.012-4.849-.069-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.069-1.645-.069-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.162c0-3.404-2.759-6.163-6.162-6.163zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Axia Column - Mobile Accordion -->
+      <div class="mobile-accordion-section bg-black  md:bg-white">
+        <!-- Mobile Accordion Button -->
+        <button class="mobile-accordion-button bg-black  md:bg-white text-white">
+          <span class="text-[16px] md:text-[18px] font-bold text-white">Axia</span>
+          <span class="plus-icon">+</span>
+        </button>
+        
+        <!-- Desktop Heading (hidden on mobile) -->
+        <h4 class="desktop-only text-[16px] md:text-[18px] font-bold text-gray-900 mb-4 md:mb-6">Axia</h4>
+        
+        <!-- Accordion Content -->
+        <div class="accordion-content md:!max-h-none">
+          <ul class="space-y-3 md:space-y-3 text-gray-600 text-[15px] md:text-lg pt-4 md:pt-0">
+            <li><a href="#" class="hover:text-gray-900 transition block py-1">About</a></li>
+            <li><a href="#" class="hover:text-gray-900 transition block py-1">Affiliates</a></li>
+            <li><a href="#" class="hover:text-gray-900 transition block py-1">Account Types</a></li>
+            <li><a href="#" class="hover:text-gray-900 transition block py-1">Registration</a></li>
+            <li><a href="#" class="hover:text-gray-900 transition block py-1">Support Center</a></li>
+            <li><a href="#" class="hover:text-gray-900 transition block py-1">Reviews</a></li>
+            <li><a href="#" class="hover:text-gray-900 transition block py-1">Referral Program</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Markets Column - Mobile Accordion -->
+      <div class="mobile-accordion-section " >
+        <!-- Mobile Accordion Button -->
+        <button class="mobile-accordion-button bg-black  md:bg-white text-white">
+          <span class="text-[16px] md:text-[18px] font-bold text-white">Markets</span>
+          <span class="plus-icon">+</span>
+        </button>
+        
+        <!-- Desktop Heading (hidden on mobile) -->
+        <h4 class="desktop-only text-[16px] md:text-[18px] font-bold text-gray-900 mb-4 md:mb-6">Markets</h4>
+        
+        <!-- Accordion Content -->
+        <div class="accordion-content md:!max-h-none">
+          <ul class="space-y-3 md:space-y-3 text-gray-600 text-[15px] md:text-lg pt-4 md:pt-0">
+            <li><a href="#" class="hover:text-gray-900 transition block py-1">CFD</a></li>
+            <li><a href="#" class="hover:text-gray-900 transition block py-1">Currency Pairs</a></li>
+            <li><a href="#" class="hover:text-gray-900 transition block py-1">Commodities</a></li>
+            <li><a href="#" class="hover:text-gray-900 transition block py-1">Stocks</a></li>
+            <li><a href="#" class="hover:text-gray-900 transition block py-1">Indices</a></li>
+            <li><a href="#" class="hover:text-gray-900 transition block py-1">Crypto</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Legal & Social Column - Mobile Accordion -->
+      <div class="space-y-4">
+        <!-- Legal Section - Mobile Accordion -->
+        <div class="mobile-accordion-section ">
+          <!-- Mobile Accordion Button -->
+          <button class="mobile-accordion-button bg-black  md:bg-white text-white">
+            <span class="text-[16px] md:text-[18px] font-bold md:text-gray-900 text-white">Legal</span>
+            <span class="plus-icon">+</span>
+          </button>
+          
+          <!-- Desktop Heading (hidden on mobile) -->
+          <h4 class="desktop-only text-[16px] md:text-[18px] font-bold text-gray-900 mb-4 md:mb-6">Legal</h4>
+          
+          <!-- Accordion Content -->
+          <div class="accordion-content md:!max-h-none">
+            <ul class="space-y-3 md:space-y-3 text-gray-600 text-[15px] md:text-lg pt-4 md:pt-0">
+              <li><a href="#" class="hover:text-gray-900 transition block py-1">Legal Documents</a></li>
+              <li><a href="#" class="hover:text-gray-900 transition block py-1">Terms & Conditions</a></li>
+              <li><a href="#" class="hover:text-gray-900 transition block py-1">Privacy Policy</a></li>
+              <li><a href="#" class="hover:text-gray-900 transition block py-1">Risk Disclosure</a></li>
+            </ul>
+          </div>
+        </div>
+
+       
+      </div>
+    </div>
+
+    <!-- Footer Bottom - Mobile Optimized -->
+    <div class="mt-8 md:mt-12 pt-6 md:pt-8 border-t border-gray-300 space-y-3 md:space-y-4 text-center text-[14px] md:text-[18px]">
+      <p class="text-gray-500 text-sm md:text-[18px] ">Secured By SSL. Copyright © Axia Trade. All rights reserved. 2025</p>
+      <p class="text-gray-500 text-sm md:text-[18px] leading-relaxed max-w-5xl mx-auto">
+        Company Information: This website (www.axiainvestments.com) is operated by Smarttool Trading SC Limited, a Seychelles investment firm, authorised and regulated by the Financial Services Authority of Seychelles with license number SD034. Smarttool Trading SC Limited is located at F20, 1st Floor, Eden Plaza, Eden Island, Republic of Seychelles.
+      </p>
+      <p class="text-gray-500 text-sm md:text-[18px]  leading-relaxed max-w-5xl mx-auto">
+        Risk warning: Contracts for difference ('CFDs') is a complex financial product...
+      </p>
+      <p class="text-gray-500 text-sm md:text-[18px]  leading-relaxed max-w-5xl mx-auto">
+        Regional Restrictions: Smarttool Trading SC Limited does not offer services within the European Economic Area as well as in certain other jurisdictions such as the USA, British Columbia, Canada and some other regions.
+      </p>
+      <p class="text-gray-500 text-sm md:text-[18px]  leading-relaxed max-w-5xl mx-auto">
+        Smarttool Trading SC Limited does not issue advice, recommendations or opinions in relation to acquiring, holding or disposing of any financial product. Smarttool Trading SC Limited is not a financial adviser.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get all accordion buttons
+    const accordionButtons = document.querySelectorAll('.mobile-accordion-button');
+    
+    // Add click event to each button
+    accordionButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        // Find the accordion content (next sibling of desktop heading)
+        const desktopHeading = this.nextElementSibling;
+        const content = desktopHeading.nextElementSibling;
+        const plusIcon = this.querySelector('.plus-icon');
+        
+        // Toggle content visibility
+        content.classList.toggle('open');
+        
+        // Rotate plus icon to "X"
+        plusIcon.classList.toggle('rotate-45');
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

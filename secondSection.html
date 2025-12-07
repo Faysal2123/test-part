@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Axia Vision</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700;900&family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              gold: "#d4af37",
+            },
+            fontFamily: {
+              "roboto-condensed": ["Roboto Condensed", "sans-serif"],
+              roboto: ["Roboto", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body>
+ <section>
+  <div
+    class="flex flex-col md:flex-row items-start md:items-stretch justify-between gap-0"
+  >
+    <!-- Left -->
+    <div class="w-full md:w-5/12">
+      <img src="/assets/iStock-1363104923.webp" alt="" class="w-full md:h-[419px] h-full object-cover" />
+    </div>
+
+    <!-- Right -->
+    <div class="w-full md:w-7/12 bg-black text-white p-6 md:p-10 ">
+      <h2
+        class="font-roboto-condensed text-[24px] md:text-[45px] font-bold md:mb-[18px] leading-tight mb-5"
+      >
+        Our Mission
+      </h2>
+
+      <p class="font-roboto text-[16px] md:text-[20px] leading-relaxed mb-4 mt-2">
+        Axia empowers traders of all levels with the knowledge, tools, and resources they need to make informed trading decisions and achieve their financial goals. Our team is dedicated to delivering exceptional value to our clients through personalized service, integrity, and continuous innovation.
+      </p>
+
+      <p class="font-roboto text-[16px] md:text-[20px] leading-relaxed">
+        Our mission is to create a trading environment that fosters growth and provides unrivaled opportunities for success. We are committed to guiding our clients on their trading journey and helping them navigate the complexities of the global markets with confidence and clarity.
+      </p>
+    </div>
+  </div>
+</section>
+
+  </body>
+</html>
