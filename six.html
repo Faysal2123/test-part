@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Seamless Infinite Carousel</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  #carousel {
+    display: flex;
+    gap: 16px;
+  }
+  #carousel img {
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body class="bg-gray-100 p-6">
+
+<div class="relative max-w-full mx-auto overflow-hidden rounded-xl shadow-xl">
+  <div class="flex overflow-hidden" id="carousel-container">
+    <div id="carousel">
+      <!-- Original images -->
+      <img src="/assets/pexels-essow-k-936722.webp" class="w-[320px] h-[200px] object-cover rounded-lg shadow-md" />
+      <img src="/assets/pexels-karl-solano-11045736.webp" class="w-[320px] h-[200px] object-cover rounded-lg shadow-md" />
+      <img src="/assets/pexels-pixabay-259091.webp" class="w-[320px] h-[200px] object-cover rounded-lg shadow-md" />
+      <img src="/assets/shutterstock_1061150225.webp" class="w-[320px] h-[200px] object-cover rounded-lg shadow-md" />
+      <img src="/assets/iStock-1429125231.webp" class="w-[320px] h-[200px] object-cover rounded-lg shadow-md" />
+      <img src="/assets/iStock-1190156654.webp" class="w-[320px] h-[200px] object-cover rounded-lg shadow-md" />
+      <img src="/assets/iStock-1363104923.webp" class="w-[320px] h-[200px] object-cover rounded-lg shadow-md" />
+      <img src="/assets/iStock-628265890.webp" class="w-[320px] h-[200px] object-cover rounded-lg shadow-md" />
+
+      <!-- Cloned images for seamless scroll -->
+      <img src="/assets/pexels-essow-k-936722.webp" class="w-[320px] h-[200px] object-cover rounded-lg shadow-md" />
+      <img src="/assets/pexels-karl-solano-11045736.webp" class="w-[320px] h-[200px] object-cover rounded-lg shadow-md" />
+      <img src="/assets/pexels-pixabay-259091.webp" class="w-[320px] h-[200px] object-cover rounded-lg shadow-md" />
+      <img src="/assets/shutterstock_1061150225.webp" class="w-[320px] h-[200px] object-cover rounded-lg shadow-md" />
+      <img src="/assets/iStock-1429125231.webp" class="w-[320px] h-[200px] object-cover rounded-lg shadow-md" />
+      <img src="/assets/iStock-1190156654.webp" class="w-[320px] h-[200px] object-cover rounded-lg shadow-md" />
+      <img src="/assets/iStock-1363104923.webp" class="w-[320px] h-[200px] object-cover rounded-lg shadow-md" />
+      <img src="/assets/iStock-628265890.webp" class="w-[320px] h-[200px] object-cover rounded-lg shadow-md" />
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <button onclick="moveSlide(-1)" class="absolute top-1/2 left-3 -translate-y-1/2 w-12 h-12 bg-black/50 text-white text-2xl flex items-center justify-center rounded-full cursor-pointer">❮</button>
+  <button onclick="moveSlide(1)" class="absolute top-1/2 right-3 -translate-y-1/2 w-12 h-12 bg-black/50 text-white text-2xl flex items-center justify-center rounded-full cursor-pointer">❯</button>
+</div>
+
+<script>
+const carousel = document.getElementById('carousel');
+const container = document.getElementById('carousel-container');
+const images = carousel.querySelectorAll('img');
+const totalOriginal = 8; // original images
+const slideWidth = images[0].offsetWidth + 16; // width + gap
+let index = 0;
+let autoPlay = setInterval(() => moveSlide(1), 4000);
+
+function moveSlide(direction) {
+  index += direction;
+  carousel.style.transition = 'transform 0.5s linear';
+  carousel.style.transform = `translateX(-${index * slideWidth}px)`;
+
+  // seamless reset
+  if (index >= totalOriginal) {
+    setTimeout(() => {
+      carousel.style.transition = 'none';
+      index = index - totalOriginal;
+      carousel.style.transform = `translateX(-${index * slideWidth}px)`;
+    }, 500);
+  } else if (index < 0) {
+    setTimeout(() => {
+      carousel.style.transition = 'none';
+      index = index + totalOriginal;
+      carousel.style.transform = `translateX(-${index * slideWidth}px)`;
+    }, 500);
+  }
+}
+
+// drag/swipe
+let isDown = false, startX, scrollLeft;
+
+container.addEventListener('mousedown', (e) => {
+  isDown = true;
+  startX = e.pageX;
+  scrollLeft = index * slideWidth;
+  clearInterval(autoPlay);
+});
+
+container.addEventListener('mouseup', () => {
+  isDown = false;
+  autoPlay = setInterval(() => moveSlide(1), 4000);
+});
+
+container.addEventListener('mouseleave', () => isDown = false);
+
+container.addEventListener('mousemove', (e) => {
+  if (!isDown) return;
+  const x = e.pageX;
+  const walk = x - startX;
+  carousel.style.transition = 'none';
+  carousel.style.transform = `translateX(-${scrollLeft - walk}px)`;
+});
+
+container.addEventListener('touchstart', (e) => {
+  isDown = true;
+  startX = e.touches[0].pageX;
+  scrollLeft = index * slideWidth;
+}, {passive:true});
+
+container.addEventListener('touchmove', (e) => {
+  if (!isDown) return;
+  const x = e.touches[0].pageX;
+  const walk = x - startX;
+  carousel.style.transition = 'none';
+  carousel.style.transform = `translateX(-${scrollLeft - walk}px)`;
+}, {passive:true});
+
+container.addEventListener('touchend', () => {
+  isDown = false;
+  autoPlay = setInterval(() => moveSlide(1), 4000);
+});
+</script>
+
+</body>
+</html>

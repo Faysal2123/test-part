@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Axia Style Footer</title>
+
+    <!-- Google Fonts: Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Roboto", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body class="font-sans">
+
+    <!-- Section -->
+    <section
+  class="w-11/12 max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 py-14"
+>
+  <!-- Left -->
+  <div class="w-full md:w-1/2 space-y-6 text-center md:text-left">
+
+    <div class="space-y-3">
+      <h1 class="text-[30px] md:text-[45px] font-bold leading-tight">
+        HELLO, PARTNER.
+      </h1>
+
+      <h2 class="text-lg sm:text-xl font-semibold">
+        REACH YOUR REVENUE GOALS BY OFFERING A WORLD CLASS SERVICE WITH LUCRATIVE REWARDS
+      </h2>
+      
+
+      <p class="text-gray-600 text-base sm:text-lg leading-relaxed">
+        Axia Trade is regulated by the FSA, Seychelles, number SD034.
+        Seychelles is an up-and-coming leading financial center which strikes
+        an excellent balance between high levels of trader protection and
+        flexibility. Our traders are able to enjoy top safety alongside
+        endless trading possibilities.
+      </p>
+    </div>
+
+    <button
+      class="bg-[#FFB100] text-black font-bold w-[250px]  md:w-[300px] h-[50px] md:h-[57px] text-lg md:text-[22px] rounded-md mx-auto md:mx-0"
+    >
+      BECOME A PARTNER
+    </button>
+
+    <p class="text-base sm:text-lg font-semibold">
+      Already a Partner? <span class="underline cursor-pointer">Login</span>
+    </p>
+  </div>
+
+  <!-- Right -->
+  <div class="w-full md:w-1/2">
+    <img
+      src="/assets/affilates_x2.webp"
+      alt=""
+      class="w-full object-cover rounded-lg"
+    />
+  </div>
+</section>
+
+  </body>
+</html>
